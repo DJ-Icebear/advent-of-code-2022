@@ -1,7 +1,7 @@
 import { readFile } from 'fs/promises'
 
 const getStashTotal = (stash: string): number => {
-  const foodItems = stash.split('\n')
+  const foodItems = stash.trim().split('\n')
 
   const caloryTotal = foodItems.reduce((total, item) => total + parseInt(item), 0)
   return caloryTotal
@@ -28,5 +28,6 @@ describe('Task 1', () => {
     const maxTotal = getSolution(input)
 
     expect(maxTotal).toBeGreaterThan(0)
+    expect(maxTotal).toBe(71471)
   })
 })
