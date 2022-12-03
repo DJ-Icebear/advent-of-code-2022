@@ -32,3 +32,14 @@ describe('Task 1', () => {
     expect(maxTotal).toBe(71471)
   })
 })
+
+describe('Task 2', () => {
+  it('returns expected response for file input', async () => {
+    const input = await readFile('day-1/input1.txt', 'binary')
+    const elfTotals = getTotals(input)
+
+    const threeTop = elfTotals.sort().slice(-3)
+    const sum = threeTop.reduce((sum, elf) => sum + elf, 0)
+    expect(sum).toBe(211189)
+  })
+})
