@@ -16,10 +16,17 @@ const getSolution = (input: string): number => {
 }
 
 describe('Task 1', () => {
-  it('returns expected response for example', async () => {
+  it('returns expected number for example input', async () => {
     const input = await readFile('day-1/example.txt', 'binary')
     const maxTotal = getSolution(input)
 
     expect(maxTotal).toBe(24000)
+  })
+
+  it('returns expected response for file input', async () => {
+    const input = await readFile('day-1/input1.txt', 'binary')
+    const maxTotal = getSolution(input)
+
+    expect(maxTotal).toBeGreaterThan(0)
   })
 })
