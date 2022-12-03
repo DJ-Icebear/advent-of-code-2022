@@ -1,0 +1,73 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/typescript",
+    "prettier"
+  ],
+  "plugins": ["prettier", "@typescript-eslint", "import"],
+  "rules": {
+    "import/no-unresolved": "error",
+    "import/no-useless-path-segments": "error",
+    "import/no-named-as-default": "error",
+    "import/no-unused-modules": "error",
+    "import/no-cycle": [
+      "error",
+      {
+        "maxDepth": 10,
+        "ignoreExternal": true
+      }
+    ],
+    "eqeqeq": "error",
+    "no-console": "off",
+    "no-undef": "off",
+    "no-unused-vars": "off",
+    "prettier/prettier": "error",
+    "consistent-return": [
+      "error",
+      {
+        "treatUndefinedAsUnspecified": true
+      }
+    ],
+    "prefer-destructuring": [
+      "error",
+      {
+        "VariableDeclarator": {
+          "object": true
+        }
+      }
+    ],
+    "prefer-template": "error",
+    "object-shorthand": "error",
+    "no-param-reassign": "error",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/explicit-function-return-type": "off"
+    },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "env": {
+    "node": true,
+    "es6": true,
+    "jest": true
+  },
+  "ignorePatterns": ["node_modules", "jest.config.js"],
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"],
+      "typescript": [
+        {
+          "alwaysTryTypes": true
+        }
+      ],
+      "node": [
+        {
+          "extensions": [".js", ".ts"]
+        }
+      ]
+    }
+  }
+}
