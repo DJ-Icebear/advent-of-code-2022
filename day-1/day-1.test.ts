@@ -7,25 +7,26 @@ const getStashTotal = (stash: string): number => {
   return caloryTotal
 }
 
-const getSolution = (input: string): number => {
+const getTotals = (input: string): number[] => {
   const elfStashes = input.split('\n\n')
 
   const elfTotals = elfStashes.map((stash) => getStashTotal(stash))
-  const maxTotal = Math.max(...elfTotals)
-  return maxTotal
+  return elfTotals
 }
 
 describe('Task 1', () => {
   it('returns expected number for example input', async () => {
     const input = await readFile('day-1/example.txt', 'binary')
-    const maxTotal = getSolution(input)
+    const elfTotals = getTotals(input)
+    const maxTotal = Math.max(...elfTotals)
 
     expect(maxTotal).toBe(24000)
   })
 
   it('returns expected response for file input', async () => {
     const input = await readFile('day-1/input1.txt', 'binary')
-    const maxTotal = getSolution(input)
+    const elfTotals = getTotals(input)
+    const maxTotal = Math.max(...elfTotals)
 
     expect(maxTotal).toBeGreaterThan(0)
     expect(maxTotal).toBe(71471)
