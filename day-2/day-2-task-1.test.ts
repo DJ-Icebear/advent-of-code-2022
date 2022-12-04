@@ -30,8 +30,8 @@ describe('Task 1', () => {
 
 const getRoundScore = (round: string): number => {
   const choices = round.split(' ')
-  const opponentChoice = getChoiceValue(choices[0])
-  const myChoice = getChoiceValue(choices[1])
+  const opponentChoice = choiceValue[choices[0]]
+  const myChoice = choiceValue[choices[1]]
 
   const resultPoints = getResult(opponentChoice, myChoice)
   return myChoice + resultPoints
@@ -43,20 +43,13 @@ enum Choice {
   SCISSORS = 3, // C, Z
 }
 
-const getChoiceValue = (letter: string): Choice => {
-  switch (letter) {
-    case 'X':
-    case 'A':
-      return Choice.ROCK
-    case 'Y':
-    case 'B':
-      return Choice.PAPER
-    case 'Z':
-    case 'C':
-      return Choice.SCISSORS
-    default:
-      throw 'Lizard/spock not allowed'
-  }
+const choiceValue = {
+  X: Choice.ROCK,
+  A: Choice.ROCK,
+  Y: Choice.PAPER,
+  B: Choice.PAPER,
+  Z: Choice.SCISSORS,
+  C: Choice.SCISSORS,
 }
 
 const getResult = (opponentChoice: Choice, myChoice: Choice): number => {
