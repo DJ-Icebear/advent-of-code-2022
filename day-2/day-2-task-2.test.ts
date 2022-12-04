@@ -32,20 +32,18 @@ const getRoundScore2 = (round: string): number => {
   return myChoice + resultPoints
 }
 
+const whatBeats = (choice: Choice): Choice => {
+  if (choice === Choice.PAPER) return Choice.SCISSORS
+  if (choice === Choice.SCISSORS) return Choice.ROCK
+  if (choice === Choice.ROCK) return Choice.PAPER
+
+  throw 'lizards'
+}
+
 const getMyChoice = (oppChoice: Choice, result: string): Choice => {
   if (result === 'Y') return oppChoice // Draw
-
-  // I win
-  if (result === 'Z') {
-    if (oppChoice === Choice.PAPER) return Choice.SCISSORS
-    if (oppChoice === Choice.SCISSORS) return Choice.ROCK
-    if (oppChoice === Choice.ROCK) return Choice.PAPER
-  } else if (result === 'X') {
-    // I lose
-    if (oppChoice === Choice.PAPER) return Choice.ROCK
-    if (oppChoice === Choice.SCISSORS) return Choice.PAPER
-    if (oppChoice === Choice.ROCK) return Choice.SCISSORS
-  }
+  if (result === 'Z') return whatBeats(oppChoice) // I win
+  if (result === 'X') return whatBeats(whatBeats(oppChoice)) // I lose
 
   throw 'No lizard/spock allowed'
 }
