@@ -1,5 +1,5 @@
 import { readFile } from 'fs/promises'
-import { getRoundScore } from '.'
+import { choiceValue, getResult } from '.'
 
 describe('Task 1', () => {
   it('returns correct score for example input', async () => {
@@ -22,3 +22,12 @@ describe('Task 1', () => {
     expect(totalScore).toBe(13484)
   })
 })
+
+const getRoundScore = (round: string): number => {
+  const choices = round.split(' ')
+  const opponentChoice = choiceValue[choices[0]]
+  const myChoice = choiceValue[choices[1]]
+
+  const resultPoints = getResult(opponentChoice, myChoice)
+  return myChoice + resultPoints
+}
