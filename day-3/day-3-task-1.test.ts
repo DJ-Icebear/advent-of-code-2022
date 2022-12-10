@@ -29,6 +29,14 @@ describe('Task 1', () => {
 
 describe('Task 2', () => {
   it('returns correct score for example input', async () => {
+    const input = await readFile('day-3/example.txt', 'binary')
+    const rucksacks = input.trim().split('\n')
+
+    const totalBadgeSum = getBadgeTotal(rucksacks)
+
+    expect(totalBadgeSum).toBe(70)
+  })
+  it('returns correct score for example input', async () => {
     const input = await readFile('day-3/input.txt', 'binary')
     const rucksacks = input.trim().split('\n')
 
@@ -44,12 +52,16 @@ const getPrioValue = (sharedLetter: string): number => {
   return sharedLetter.charCodeAt(0) - 38
 }
 
+const getArrayIntersection = (array: Array<any>): Array<any> => {
+  return array.reduce((a, b) => a.filter((c) => b.includes(c)))
+}
+
 const getRucksackSum = (rucksacks: string[]) => {
   return rucksacks.reduce((sum, rucksack) => {
     const lowerCompartment = rucksack.slice(0, rucksack.length / 2)
     const upperCompartment = rucksack.slice(rucksack.length / 2, rucksack.length)
 
-    const intersection = Array.from(lowerCompartment).filter((letter) => Array.from(upperCompartment).includes(letter))
+    const intersection = getArrayIntersection([Array.from(lowerCompartment), Array.from(upperCompartment)])
 
     const sharedLetter = intersection[0]
     const value = getPrioValue(sharedLetter)
@@ -60,16 +72,13 @@ const getRucksackSum = (rucksacks: string[]) => {
 
 const getBadgeTotal = (rucksacks: string[]): number => {
   const groupSize = 3
-
   let totalBadgeSum = 0
 
   for (let i = 0; i < rucksacks.length; i += groupSize) {
     const elfGroup = rucksacks.slice(i, i + groupSize)
-
     const groupItems = elfGroup.map((rucksack) => Array.from(rucksack))
 
-    const intersection = groupItems.reduce((a, b) => a.filter((c) => b.includes(c)))
-
+    const intersection = getArrayIntersection(groupItems)
     const value = getPrioValue(intersection[0])
 
     totalBadgeSum += value
