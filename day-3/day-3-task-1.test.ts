@@ -27,6 +27,17 @@ describe('Task 1', () => {
   })
 })
 
+describe('Task 2', () => {
+  it('returns correct score for example input', async () => {
+    const input = await readFile('day-3/input.txt', 'binary')
+    const rucksacks = input.trim().split('\n')
+
+    const totalBadgeSum = getBadgeTotal(rucksacks)
+
+    expect(totalBadgeSum).toBe(2697)
+  })
+})
+
 const getPrioValue = (sharedLetter: string): number => {
   const isLowerCase = sharedLetter.toLowerCase() === sharedLetter
   if (isLowerCase) return sharedLetter.charCodeAt(0) - 96
@@ -45,4 +56,23 @@ const getRucksackSum = (rucksacks: string[]) => {
 
     return sum + value
   }, 0)
+}
+
+const getBadgeTotal = (rucksacks: string[]): number => {
+  const groupSize = 3
+
+  let totalBadgeSum = 0
+
+  for (let i = 0; i < rucksacks.length; i += groupSize) {
+    const elfGroup = rucksacks.slice(i, i + groupSize)
+
+    const groupItems = elfGroup.map((rucksack) => Array.from(rucksack))
+
+    const intersection = groupItems.reduce((a, b) => a.filter((c) => b.includes(c)))
+
+    const value = getPrioValue(intersection[0])
+
+    totalBadgeSum += value
+  }
+  return totalBadgeSum
 }
