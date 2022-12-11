@@ -6,6 +6,8 @@ describe('Task 1', () => {
     expect(checkOverlap(['2-3', '4-5'])).toBe(false)
     expect(checkOverlap(['2-8', '3-7'])).toBe(true)
     expect(checkOverlap(['6-6', '4-6'])).toBe(true)
+    expect(checkOverlap(['1-1', '1-2'])).toBe(true)
+    expect(checkOverlap(['1-1', '1-1'])).toBe(true)
   })
 
   it('returns correct score for example input', async () => {
@@ -51,6 +53,7 @@ const checkOverlap = (pairs: string[]): boolean => {
   const topSign = Math.sign(secondPairHigh - firstPairHigh)
   const bottomSign = Math.sign(secondPairLow - firstPairLow)
 
+  if (topSign === 0 && bottomSign === 0) return true
   if (topSign !== bottomSign) return true
   else return false
 }
