@@ -1,11 +1,9 @@
-import { readFile } from 'fs/promises'
 import { choiceValue, getResult } from '.'
+import { fileLinesToArray } from '../utils/file'
 
 describe('Task 1', () => {
   it('returns correct score for example input', async () => {
-    const input = await readFile('day-2/example.txt', 'binary')
-
-    const rounds = input.split('\n')
+    const rounds = await fileLinesToArray('day-2/example.txt')
 
     const totalScore = rounds.reduce((sum, round) => sum + getRoundScore(round), 0)
 
@@ -13,9 +11,7 @@ describe('Task 1', () => {
   })
 
   it('returns correct score for input file', async () => {
-    const input = await readFile('day-2/input.txt', 'binary')
-
-    const rounds = input.trim().split('\n')
+    const rounds = await fileLinesToArray('day-2/input.txt')
 
     const totalScore = rounds.reduce((sum, round) => sum + getRoundScore(round), 0)
 

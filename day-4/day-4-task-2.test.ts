@@ -1,4 +1,4 @@
-import { readFile } from 'fs/promises'
+import { fileLinesToArray } from '../utils/file'
 
 describe('Task 2', () => {
   it('checkOverlap works', async () => {
@@ -17,8 +17,7 @@ describe('Task 2', () => {
   })
 
   it('returns correct score for example input', async () => {
-    const input = await readFile('day-4/example.txt', 'binary')
-    const elfPairs = input.split('\n')
+    const elfPairs = await fileLinesToArray('day-4/example.txt')
 
     const totalOverlappingPairs = elfPairs.reduce((overlappingCount, pairString) => {
       const pairs = pairString.split(',')
@@ -31,8 +30,7 @@ describe('Task 2', () => {
   })
 
   it('returns correct score for example input', async () => {
-    const input = await readFile('day-4/input.txt', 'binary')
-    const elfPairs = input.trim().split('\n')
+    const elfPairs = await fileLinesToArray('day-4/input.txt')
 
     const totalOverlappingPairs = elfPairs.reduce((overlappingCount, pairString) => {
       const pairs = pairString.split(',')

@@ -1,4 +1,4 @@
-import { readFile } from 'fs/promises'
+import { fileLinesToArray } from '../utils/file'
 
 describe('Task 1', () => {
   it('getPrioValue works', async () => {
@@ -9,8 +9,7 @@ describe('Task 1', () => {
   })
 
   it('returns correct score for example input', async () => {
-    const input = await readFile('day-3/example.txt', 'binary')
-    const rucksacks = input.split('\n')
+    const rucksacks = await fileLinesToArray('day-3/example.txt')
 
     const sumTotal = getRucksackSum(rucksacks)
 
@@ -18,8 +17,7 @@ describe('Task 1', () => {
   })
 
   it('returns correct score for example input', async () => {
-    const input = await readFile('day-3/input.txt', 'binary')
-    const rucksacks = input.trim().split('\n')
+    const rucksacks = await fileLinesToArray('day-3/input.txt')
 
     const sumTotal = getRucksackSum(rucksacks)
 
@@ -29,16 +27,14 @@ describe('Task 1', () => {
 
 describe('Task 2', () => {
   it('returns correct score for example input', async () => {
-    const input = await readFile('day-3/example.txt', 'binary')
-    const rucksacks = input.trim().split('\n')
+    const rucksacks = await fileLinesToArray('day-3/example.txt')
 
     const totalBadgeSum = getBadgeTotal(rucksacks)
 
     expect(totalBadgeSum).toBe(70)
   })
   it('returns correct score for example input', async () => {
-    const input = await readFile('day-3/input.txt', 'binary')
-    const rucksacks = input.trim().split('\n')
+    const rucksacks = await fileLinesToArray('day-3/input.txt')
 
     const totalBadgeSum = getBadgeTotal(rucksacks)
 
