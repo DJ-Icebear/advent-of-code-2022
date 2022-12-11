@@ -1,6 +1,13 @@
 import { readFile } from 'fs/promises'
 
 describe('Task 1', () => {
+  it('checkOverlap works', async () => {
+    expect(checkOverlap(['2-4', '6-8'])).toBe(false)
+    expect(checkOverlap(['2-3', '4-5'])).toBe(false)
+    expect(checkOverlap(['2-8', '3-7'])).toBe(true)
+    expect(checkOverlap(['6-6', '4-6'])).toBe(true)
+  })
+
   it('returns correct score for example input', async () => {
     const input = await readFile('day-4/example.txt', 'binary')
     const elfPairs = input.split('\n')
@@ -15,11 +22,18 @@ describe('Task 1', () => {
     expect(totalOverlappingPairs).toBe(2)
   })
 
-  it('checkOverlap works', async () => {
-    expect(checkOverlap(['2-4', '6-8'])).toBe(false)
-    expect(checkOverlap(['2-3', '4-5'])).toBe(false)
-    expect(checkOverlap(['2-8', '3-7'])).toBe(true)
-    expect(checkOverlap(['6-6', '4-6'])).toBe(true)
+  it('returns correct score for input file', async () => {
+    const input = await readFile('day-4/input.txt', 'binary')
+    const elfPairs = input.trim().split('\n')
+
+    const totalOverlappingPairs = elfPairs.reduce((overlappingCount, pairString) => {
+      const pairs = pairString.split(',')
+
+      const isOverlapping = checkOverlap(pairs)
+      return isOverlapping ? overlappingCount + 1 : overlappingCount
+    }, 0)
+
+    expect(totalOverlappingPairs).toBe(448) // to low
   })
 })
 
