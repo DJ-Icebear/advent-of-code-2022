@@ -13,12 +13,7 @@ describe('Task 1', () => {
   it('returns correct score for example input', async () => {
     const elfPairs = await fileLinesToArray('day-4/example.txt')
 
-    const totalOverlappingPairs = elfPairs.reduce((overlappingCount, pairString) => {
-      const pairs = pairString.split(',')
-
-      const isOverlapping = checkOverlap(pairs)
-      return isOverlapping ? overlappingCount + 1 : overlappingCount
-    }, 0)
+    const totalOverlappingPairs = getOverlappingPairs(elfPairs)
 
     expect(totalOverlappingPairs).toBe(2)
   })
@@ -36,6 +31,15 @@ describe('Task 1', () => {
     expect(totalOverlappingPairs).toBe(448) // to low
   })
 })
+
+const getOverlappingPairs = (elfPairs: string[]) => {
+  return elfPairs.reduce((overlappingCount, pairString) => {
+    const pairs = pairString.split(',')
+
+    const isOverlapping = checkOverlap(pairs)
+    return isOverlapping ? overlappingCount + 1 : overlappingCount
+  }, 0)
+}
 
 const checkOverlap = (pairs: string[]): boolean => {
   const firstPair = pairs[0].split('-')
