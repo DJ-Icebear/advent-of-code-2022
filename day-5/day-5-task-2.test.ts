@@ -1,7 +1,7 @@
 import { readFile } from 'fs/promises'
-import { CrateArray, getCrateArray, getTopCrates } from '.'
+import { getCrateArray, getTopCrates, CrateArray } from '.'
 
-describe('Task 1', () => {
+describe('Task 2', () => {
   it('returns correct string for example input', async () => {
     const input = await readFile('day-5/example.txt', 'binary')
     const [crateState, instructions] = input.split('\n\n')
@@ -9,28 +9,17 @@ describe('Task 1', () => {
     const crateArray = getCrateArray(crateState)
     const response = getResponse(crateArray, instructions)
 
-    expect(response).toBe('CMZ')
+    expect(response).toBe('MCD')
   })
 
-  it('returns correct string for input file', async () => {
+  it('returns correct string for example input', async () => {
     const input = await readFile('day-5/input.txt', 'binary')
-    const [crateState, instructions] = input.split('\n\n')
+    const [crateState, instructions] = input.trim().split('\n\n')
 
     const crateArray = getCrateArray(crateState)
     const response = getResponse(crateArray, instructions)
 
-    expect(response).toBe('WHTLRMZRC')
-  })
-})
-
-describe('getResponseString', () => {
-  it('returns string of top elements', () => {
-    const input = [
-      ['Z', 'M', 'P'],
-      ['H', 'G'],
-      ['D', 'F'],
-    ]
-    expect(getTopCrates(input)).toBe('PGF')
+    expect(response).toBe('GMPMLWNMG')
   })
 })
 
@@ -64,8 +53,7 @@ const moveCrates = (crateArray: CrateArray, instruction: string): void => {
     .filter((word) => !isNaN(parseInt(word)))
     .map((item) => parseInt(item))
 
-  for (let index = 0; index < numberOfCrates; index++) {
-    const popped = crateArray[fromCrateNumber - 1].pop()
-    popped && crateArray[toCrateNumber - 1].push(popped)
-  }
+  const fromCrate = crateArray[fromCrateNumber - 1]
+  const crateToMove = fromCrate.splice(-numberOfCrates)
+  crateArray[toCrateNumber - 1] = crateArray[toCrateNumber - 1].concat(crateToMove)
 }
