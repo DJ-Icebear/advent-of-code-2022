@@ -17,6 +17,11 @@ describe('Task 1', () => {
     expect(getMyResponse('zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw')).toBe(11)
     expect(getMyResponse('abcv')).toBe(4)
   })
+
+  it('returns correct string for first task file input', async () => {
+    const input = await readFile('day-6/input.txt', 'binary')
+    expect(getMyResponse(input)).toBe(1850)
+  })
 })
 
 const getMyResponse = (input: string): number | null => {
